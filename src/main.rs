@@ -1,6 +1,8 @@
 mod days;
 
 fn main() {
-    println!("{}", days::day1::part1()); // 68442
-    println!("{}", days::day1::part2(3)); // 204837
+    days::day1::part1();
+    days::day1::part2(3);
+    days::day2::part1();
+    days::day2::part2();
 }
