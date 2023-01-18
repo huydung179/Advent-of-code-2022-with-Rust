@@ -43,7 +43,11 @@ fn get_priorities() -> HashMap<char, usize> {
 
 pub fn part1() {
     fn split_string(s: String) -> Vec<String> {
-        s.chars().collect::<Vec<char>>().chunks(s.len() / 2).map(|c| c.iter().collect::<String>()).collect::<Vec<String>>()
+        s.chars()
+        .collect::<Vec<char>>()
+        .chunks(s.len() / 2)
+        .map(|c| c.iter().collect::<String>())
+        .collect::<Vec<String>>()
     }
 
     let input = get_input("src/days/day3/assets/input.txt");
@@ -55,4 +59,16 @@ pub fn part1() {
         .sum();
     
     println!("Day 3 - Part 1: Total priority is {}", total_priority);
+}
+
+pub fn part2() {
+    let input = get_input("src/days/day3/assets/input.txt");
+    let priorities = get_priorities();
+    let total_priority : usize = input
+        .chunks(3)
+        .map(|r| R::new((*r).to_vec()).get_common_item())
+        .map(|c| priorities.get(&c).unwrap())
+        .sum();
+    
+    println!("Day 3 - Part 2: Total priority is {}", total_priority);
 }
