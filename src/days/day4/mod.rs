@@ -84,5 +84,5 @@ pub fn part2() {
         })
         .sum();
     
-    println!("Day 4 - Part 1: Number of overlap is {}", contain_count);
+    println!("Day 4 - Part 2: Number of overlap is {}", contain_count);
 }
