@@ -86,15 +86,15 @@ pub fn get_rearangement() -> Vec<Rearrangement> {
 
                 let quantity: u32 = match s.split(" ").nth(1).unwrap().parse() {
                     Ok(d) => d,
-                    _ => 0
+                    Err(_) => panic!("Error in quantity!"),
                 };
                 let from: usize = match s.split(" ").nth(3).unwrap().parse() {
                     Ok(d) => d,
-                    _ => 0
+                    Err(_) => panic!("Error in from!"),
                 };
                 let to: usize = match s.split(" ").nth(5).unwrap().parse() {
                     Ok(d) => d,
-                    _ => 0
+                    Err(_) => panic!("Error in to!"),
                 };
                 Rearrangement {
                     quantity,
