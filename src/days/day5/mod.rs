@@ -1,6 +1,6 @@
 use std::fs;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Stacks {
     data: Vec<Vec<char>>
 }
@@ -36,6 +36,20 @@ impl Stacks {
             let c = self.data[from].remove(len - q as usize);
             self.data[to].push(c);
         }
+    }
+
+    pub fn get_top_chars(&self) -> String {
+        let top_chars : String = self.data.clone().into_iter()
+        .map(
+            |chars|
+            match chars.last() {
+                Some(c) => *c,
+                None => ' ',
+            }
+        )
+        .filter(|c| *c != ' ')
+        .collect();
+        top_chars
     }
 }
 
@@ -113,16 +127,7 @@ pub fn part1() {
     for r in rearangements.into_iter() {
         stacks.rearange(r);
     }
-    let top_chars : String = stacks.data.into_iter()
-        .map(
-            |chars|
-            match chars.last() {
-                Some(c) => *c,
-                None => ' ',
-            }
-        )
-        .filter(|c| *c != ' ')
-        .collect();
+    let top_chars : String = stacks.get_top_chars();
     println!("Day 5 - Part 1: Top chars is {}", top_chars);
 }
 
@@ -132,15 +137,6 @@ pub fn part2() {
     for r in rearangements.into_iter() {
         stacks.rearange_reserve_order(r);
     }
-    let top_chars : String = stacks.data.into_iter()
-        .map(
-            |chars|
-            match chars.last() {
-                Some(c) => *c,
-                None => ' ',
-            }
-        )
-        .filter(|c| *c != ' ')
-        .collect();
+    let top_chars : String = stacks.get_top_chars();
     println!("Day 5 - Part 2: Top chars is {}", top_chars);
 }
