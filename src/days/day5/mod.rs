@@ -7,7 +7,7 @@ pub struct Stacks {
 
 #[derive(Debug)]
 pub struct Rearrangement {
-    quantity: u32,
+    quantity: usize,
     from: usize,
     to: usize
 }
@@ -18,12 +18,10 @@ impl Stacks {
         let from = r.from - 1;
         let to = r.to - 1;
 
-        for _ in 0..q {
-            match self.data[from].pop() {
-                Some(c) => self.data[to].push(c),
-                None => println!("Error in rearangement!"),
-            };
-        }
+        let len = self.data[from].len();
+        let mut tail = self.data[from].split_off(len - q);
+        tail.reverse();
+        self.data[to].append(&mut tail)
     }
 
     pub fn rearange_reserve_order(&mut self, r: Rearrangement) {
@@ -32,10 +30,8 @@ impl Stacks {
         let to = r.to - 1;
 
         let len = self.data[from].len();
-        for _ in 0..q {
-            let c = self.data[from].remove(len - q as usize);
-            self.data[to].push(c);
-        }
+        let mut tail = self.data[from].split_off(len - q);
+        self.data[to].append(&mut tail)
     }
 
     pub fn get_top_chars(&self) -> String {
@@ -98,7 +94,7 @@ pub fn get_rearangement() -> Vec<Rearrangement> {
         .map(
             |s| {
 
-                let quantity: u32 = match s.split(" ").nth(1).unwrap().parse() {
+                let quantity: usize = match s.split(" ").nth(1).unwrap().parse() {
                     Ok(d) => d,
                     Err(_) => panic!("Error in quantity!"),
                 };
