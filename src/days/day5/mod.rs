@@ -1,6 +1,6 @@
 use std::fs;
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct Stacks {
     data: Vec<Vec<char>>
 }
@@ -27,7 +27,7 @@ impl Stacks {
     }
 
     pub fn get_top_chars(&self) -> String {
-        let top_chars : String = self.data.clone().into_iter()
+        let top_chars : String = self.data.iter()
         .map(
             |chars|
             match chars.last() {
