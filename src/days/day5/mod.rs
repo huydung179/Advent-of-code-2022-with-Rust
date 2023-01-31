@@ -13,24 +13,16 @@ pub struct Rearrangement {
 }
 
 impl Stacks {
-    pub fn rearange(&mut self, r: Rearrangement) {
+    pub fn rearange(&mut self, r: Rearrangement, conserve_order: bool) {
         let q = r.quantity;
         let from = r.from - 1;
         let to = r.to - 1;
 
         let len = self.data[from].len();
         let mut tail = self.data[from].split_off(len - q);
-        tail.reverse();
-        self.data[to].append(&mut tail)
-    }
-
-    pub fn rearange_reserve_order(&mut self, r: Rearrangement) {
-        let q = r.quantity;
-        let from = r.from - 1;
-        let to = r.to - 1;
-
-        let len = self.data[from].len();
-        let mut tail = self.data[from].split_off(len - q);
+        if conserve_order {
+            tail.reverse();
+        }
         self.data[to].append(&mut tail)
     }
 
@@ -121,7 +113,7 @@ pub fn part1() {
     let mut stacks = get_stacks();
     let rearangements = get_rearangement();
     for r in rearangements.into_iter() {
-        stacks.rearange(r);
+        stacks.rearange(r, false);
     }
     let top_chars : String = stacks.get_top_chars();
     println!("Day 5 - Part 1: Top chars is {}", top_chars);
@@ -131,7 +123,7 @@ pub fn part2() {
     let mut stacks = get_stacks();
     let rearangements = get_rearangement();
     for r in rearangements.into_iter() {
-        stacks.rearange_reserve_order(r);
+        stacks.rearange(r, true);
     }
     let top_chars : String = stacks.get_top_chars();
     println!("Day 5 - Part 2: Top chars is {}", top_chars);
