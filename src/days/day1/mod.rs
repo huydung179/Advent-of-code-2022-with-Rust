@@ -5,9 +5,9 @@ fn get_calories(input_path: &str) -> Vec<i32> {
         .expect("Something went wrong reading the file");
 
     let mut calories: Vec<i32> = contents
-        .split("\n\n")
+        .split("\r\n")
         .map(|lines| lines
-            .split("\n")
+            .lines()
             .map(|line| line.parse::<i32>().unwrap())
             .sum())
         .collect();
